@@ -1,97 +1,38 @@
-import { motion } from 'framer-motion';
-
-const skills = [
-  {
-    name: "UI/UX Design",
-    icon: "🎨",
-    description: "Creating intuitive and beautiful user interfaces"
-  },
-  {
-    name: "Photoshop",
-    icon: "🖼️",
-    description: "Professional image editing and graphic design"
-  },
-  {
-    name: "React & JavaScript",
-    icon: "⚛️",
-    description: "Building dynamic and interactive web applications"
-  },
-  {
-    name: "Python",
-    icon: "🐍",
-    description: "Backend development and data analysis"
-  },
-  {
-    name: "Java",
-    icon: "☕",
-    description: "Object-oriented programming and enterprise applications"
-  },
-  {
-    name: "C Programming",
-    icon: "⚙️",
-    description: "System programming and algorithm development"
-  }
-];
+import { skillGroups } from '../data/portfolio';
 
 export default function Skills() {
   return (
-    <section id="skills" className="py-12 md:py-20 bg-white relative overflow-hidden">
-      {/* Simple dots */}
-      <div className="absolute inset-0 opacity-5">
-        {Array.from({ length: 8 }, (_, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-blue-400 rounded-full"
-            style={{
-              left: `${i * 12}%`,
-              top: `${i * 10}%`
-            }}
-            animate={{
-              opacity: [0.1, 0.5, 0.1]
-            }}
-            transition={{
-              duration: 2 + i,
-              repeat: Infinity
-            }}
-          />
-        ))}
-      </div>
-      
-      <div className="container mx-auto px-4 md:px-6 relative z-10">
-        <motion.h2 
-          className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 text-center mb-8 md:mb-12"
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-        >
-          My Skills
-        </motion.h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {skills.map((skill, index) => (
-            <motion.div 
-              key={index}
-              className="bg-gray-50 p-6 rounded-lg border border-gray-200 shadow-lg text-center group cursor-pointer"
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: index * 0.1 }}
-              viewport={{ once: true }}
-              whileHover={{ 
-                scale: 1.05, 
-                y: -5,
-                boxShadow: "0 20px 25px -5px rgba(59, 130, 246, 0.3)"
-              }}
-            >
-              <motion.div 
-                className="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300"
-                whileHover={{ rotate: [0, -10, 10, 0] }}
-              >
-                {skill.icon}
-              </motion.div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors">{skill.name}</h3>
-              <p className="text-gray-600 text-sm group-hover:text-gray-700 transition-colors">{skill.description}</p>
-            </motion.div>
+    <section id="skills" className="border-b border-[var(--color-line)] bg-white">
+      <div className="mx-auto max-w-6xl px-5 pb-20 pt-12 md:px-8 md:pb-20 md:pt-14">
+        <div className="mb-12 max-w-3xl">
+          <p className="section-kicker">Skills</p>
+          <h2 className="section-title">Technical capabilities</h2>
+          <p className="mt-4 text-base leading-8 text-[var(--color-body)]">
+            A focused set of technologies and tools used across academic and personal projects.
+          </p>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {skillGroups.map((group) => (
+            <div key={group.title} className="panel interactive-card">
+              <h3 className="panel-title">{group.title}</h3>
+              <div className="mt-6 grid gap-5">
+                {group.items.map((item) => (
+                  <div key={item.name} className="interactive-card rounded-lg border border-[var(--color-line)] bg-white p-4">
+                    <div className="mb-2 flex items-center justify-between gap-4">
+                      <span className="text-sm font-medium text-[var(--color-ink)]">{item.name}</span>
+                      <span className="text-sm text-[var(--color-muted)]">{item.level}%</span>
+                    </div>
+                    <div className="h-2 overflow-hidden rounded-full bg-[var(--color-soft)]">
+                      <div
+                        className="h-full rounded-full bg-[var(--color-accent)]"
+                        style={{ width: `${item.level}%` }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           ))}
         </div>
       </div>

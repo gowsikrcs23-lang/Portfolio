@@ -1,137 +1,83 @@
 import { useState } from 'react';
+import { profile } from '../data/portfolio';
+
+const navItems = [
+  ['home', 'Home'],
+  ['about', 'About'],
+  ['skills', 'Skills'],
+  ['certificates', 'Certificates'],
+  ['projects', 'Projects'],
+  ['contact', 'Contact']
+];
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
-  return (
-    <header className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
-      <nav className="container mx-auto px-4 py-3">
-        <div className="flex justify-between items-center">
-          <div className="text-lg md:text-2xl font-bold text-gray-800">Gowsik R</div>
-          
-          <div className="hidden md:flex space-x-8">
-            <a 
-              href="#home" 
-              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              Home
-            </a>
-            <a 
-              href="#about" 
-              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              About
-            </a>
-            <a 
-              href="#skills" 
-              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('skills').scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              Skills
-            </a>
-            <a 
-              href="#projects" 
-              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              Projects
-            </a>
-            <a 
-              href="#contact" 
-              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-              }}
-            >
-              Contact
-            </a>
-          </div>
+  const handleScroll = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    const headerOffset = 76;
 
-          <button 
-            className="md:hidden text-gray-800"
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          </button>
+    if (element) {
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      const offsetPosition = Math.max(elementPosition - headerOffset, 0);
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+
+    setIsOpen(false);
+  };
+
+  return (
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-[var(--color-line)] bg-white">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4 md:px-8">
+        <button type="button" className="text-left" onClick={() => handleScroll('home')}>
+          <span className="block text-lg font-semibold text-[var(--color-ink)]">{profile.name}</span>
+          <span className="block text-xs text-[var(--color-muted)]">{profile.title}</span>
+        </button>
+
+        <div className="hidden items-center gap-8 md:flex">
+          {navItems.map(([id, label]) => (
+            <button
+              key={id}
+              type="button"
+              className="nav-glow text-sm text-[var(--color-body)]"
+              onClick={() => handleScroll(id)}
+            >
+              {label}
+            </button>
+          ))}
         </div>
 
-        {isOpen && (
-          <div className="md:hidden mt-4 pb-4">
-            <a 
-              href="#home" 
-              className="block py-2 text-gray-700 hover:text-blue-600"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
-                setIsOpen(false);
-              }}
-            >
-              Home
-            </a>
-            <a 
-              href="#about" 
-              className="block py-2 text-gray-700 hover:text-blue-600"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
-                setIsOpen(false);
-              }}
-            >
-              About
-            </a>
-            <a 
-              href="#skills" 
-              className="block py-2 text-gray-700 hover:text-blue-600"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('skills').scrollIntoView({ behavior: 'smooth' });
-                setIsOpen(false);
-              }}
-            >
-              Skills
-            </a>
-            <a 
-              href="#projects" 
-              className="block py-2 text-gray-700 hover:text-blue-600"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
-                setIsOpen(false);
-              }}
-            >
-              Projects
-            </a>
-            <a 
-              href="#contact" 
-              className="block py-2 text-gray-700 hover:text-blue-600"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-                setIsOpen(false);
-              }}
-            >
-              Contact
-            </a>
-          </div>
-        )}
+        <button
+          type="button"
+          className="text-[var(--color-ink)] md:hidden"
+          onClick={() => setIsOpen((open) => !open)}
+        >
+          <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
       </nav>
+
+      {isOpen && (
+        <div className="mx-auto max-w-6xl border-t border-[var(--color-line)] px-5 py-4 md:hidden md:px-8">
+          <div className="flex flex-col gap-3">
+            {navItems.map(([id, label]) => (
+              <button
+                key={id}
+                type="button"
+                className="nav-glow text-left text-sm text-[var(--color-body)]"
+                onClick={() => handleScroll(id)}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
     </header>
   );
 }
