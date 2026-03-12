@@ -18,15 +18,48 @@ const projects = [
     description: "Secure authentication system for computer lab management with user registration and session tracking",
     tech: ["HTML", "CSS", "JavaScript", "PHP"],
     image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?w=400&h=250&fit=crop&auto=format"
+  },
+  {
+    title: "Food Delivery App UI/UX",
+    description: "Modern food delivery application design with intuitive user interface and seamless ordering experience",
+    tech: ["Figma", "UI/UX", "Prototyping"],
+    image: "/image.png"
+  },
+  {
+    title: "Online Grocery Shop",
+    description: "Full-stack e-commerce platform for online grocery shopping with cart management and payment integration",
+    tech: ["MongoDB", "Express", "React", "Node.js"],
+    image: "https://images.unsplash.com/photo-1542838132-92c53300491e?w=400&h=250&fit=crop&auto=format"
   }
 ];
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-12 md:py-20 bg-gray-900">
-      <div className="container mx-auto px-4 md:px-6">
+    <section id="projects" className="py-12 md:py-20 bg-gray-50 relative overflow-hidden">
+      {/* Simple shapes */}
+      <div className="absolute inset-0 opacity-8">
+        {Array.from({ length: 4 }, (_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-2 h-2 bg-blue-400 rounded-full"
+            style={{
+              left: `${20 + i * 20}%`,
+              top: `${20 + i * 15}%`
+            }}
+            animate={{
+              scale: [1, 1.2, 1]
+            }}
+            transition={{
+              duration: 3 + i,
+              repeat: Infinity
+            }}
+          />
+        ))}
+      </div>
+      
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         <motion.h2 
-          className="text-2xl md:text-3xl lg:text-4xl font-bold text-white text-center mb-8 md:mb-12"
+          className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-800 text-center mb-8 md:mb-12"
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
@@ -39,7 +72,7 @@ export default function Projects() {
           {projects.map((project, index) => (
             <motion.div 
               key={index}
-              className="bg-gray-800 rounded-lg overflow-hidden border border-gray-700 shadow-md cursor-pointer"
+              className="bg-white rounded-lg overflow-hidden border border-gray-200 shadow-md cursor-pointer group relative"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               whileHover={{ 
@@ -50,21 +83,24 @@ export default function Projects() {
               transition={{ duration: 0.8, delay: index * 0.2 }}
               viewport={{ once: true }}
             >
+              {/* Hover overlay */}
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-indigo-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              
               <img 
                 src={project.image} 
                 alt={project.title}
-                className="w-full h-48 object-cover"
+                className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500"
               />
               
               <div className="p-6">
-                <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
-                <p className="text-gray-300 mb-4">{project.description}</p>
+                <h3 className="text-xl font-semibold text-gray-800 mb-2">{project.title}</h3>
+                <p className="text-gray-600 mb-4">{project.description}</p>
                 
                 <div className="flex flex-wrap gap-2">
                   {project.tech.map((tech, techIndex) => (
                     <span 
                       key={techIndex}
-                      className="bg-cyan-900 text-cyan-300 px-3 py-1 rounded-full text-sm border border-cyan-700"
+                      className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm border border-blue-200"
                     >
                       {tech}
                     </span>

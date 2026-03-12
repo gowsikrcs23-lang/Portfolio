@@ -3,8 +3,19 @@ import SkillsAnimation from './SkillsAnimation';
 
 export default function Hero() {
   return (
-    <section id="home" className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+    <section id="home" className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50">>
       <div className="absolute inset-0 z-0">
+        {/* Interactive typing effect */}
+        <div className="absolute top-10 right-10 opacity-20">
+          <motion.div
+            className="text-cyan-600 font-mono text-sm"
+            animate={{ opacity: [0.2, 0.8, 0.2] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            &gt; Hello World! _
+          </motion.div>
+        </div>
+        
         {/* Animated code snippets */}
         <div className="absolute inset-0 opacity-30">
           {['function()', 'const x =', 'if (true)', 'return;', 'class App', '{ code }', 'async/await', 'npm install'].map((code, i) => (
@@ -154,7 +165,7 @@ export default function Hero() {
           
           <motion.a 
             href="#projects"
-            className="inline-block bg-cyan-600 hover:bg-cyan-700 px-6 md:px-8 py-3 rounded-lg font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-xl text-sm md:text-base"
+            className="inline-block bg-blue-600 hover:bg-blue-700 px-6 md:px-8 py-3 rounded-lg font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-xl text-sm md:text-base"
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}

@@ -4,15 +4,15 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-gray-900/95 backdrop-blur-sm border-b border-gray-700 shadow-sm">
+    <header className="fixed top-0 w-full z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
       <nav className="container mx-auto px-4 py-3">
         <div className="flex justify-between items-center">
-          <div className="text-lg md:text-2xl font-bold text-white">Gowsik R</div>
+          <div className="text-lg md:text-2xl font-bold text-gray-800">Gowsik R</div>
           
           <div className="hidden md:flex space-x-8">
             <a 
               href="#home" 
-              className="text-gray-300 hover:text-cyan-400 transition-colors font-medium"
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
               onClick={(e) => {
                 e.preventDefault();
                 document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
@@ -22,7 +22,7 @@ export default function Header() {
             </a>
             <a 
               href="#about" 
-              className="text-gray-300 hover:text-cyan-400 transition-colors font-medium"
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
               onClick={(e) => {
                 e.preventDefault();
                 document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
@@ -32,7 +32,7 @@ export default function Header() {
             </a>
             <a 
               href="#skills" 
-              className="text-gray-300 hover:text-cyan-400 transition-colors font-medium"
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
               onClick={(e) => {
                 e.preventDefault();
                 document.getElementById('skills').scrollIntoView({ behavior: 'smooth' });
@@ -42,7 +42,7 @@ export default function Header() {
             </a>
             <a 
               href="#projects" 
-              className="text-gray-300 hover:text-cyan-400 transition-colors font-medium"
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
               onClick={(e) => {
                 e.preventDefault();
                 document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
@@ -52,7 +52,7 @@ export default function Header() {
             </a>
             <a 
               href="#contact" 
-              className="text-gray-300 hover:text-cyan-400 transition-colors font-medium"
+              className="text-gray-700 hover:text-blue-600 transition-colors font-medium"
               onClick={(e) => {
                 e.preventDefault();
                 document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
@@ -63,7 +63,7 @@ export default function Header() {
           </div>
 
           <button 
-            className="md:hidden text-white"
+            className="md:hidden text-gray-800"
             onClick={() => setIsOpen(!isOpen)}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -76,7 +76,7 @@ export default function Header() {
           <div className="md:hidden mt-4 pb-4">
             <a 
               href="#home" 
-              className="block py-2 text-gray-300 hover:text-cyan-400"
+              className="block py-2 text-gray-700 hover:text-blue-600"
               onClick={(e) => {
                 e.preventDefault();
                 document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
@@ -87,7 +87,7 @@ export default function Header() {
             </a>
             <a 
               href="#about" 
-              className="block py-2 text-gray-300 hover:text-cyan-400"
+              className="block py-2 text-gray-700 hover:text-blue-600"
               onClick={(e) => {
                 e.preventDefault();
                 document.getElementById('about').scrollIntoView({ behavior: 'smooth' });
@@ -98,7 +98,7 @@ export default function Header() {
             </a>
             <a 
               href="#skills" 
-              className="block py-2 text-gray-300 hover:text-cyan-400"
+              className="block py-2 text-gray-700 hover:text-blue-600"
               onClick={(e) => {
                 e.preventDefault();
                 document.getElementById('skills').scrollIntoView({ behavior: 'smooth' });
@@ -109,7 +109,7 @@ export default function Header() {
             </a>
             <a 
               href="#projects" 
-              className="block py-2 text-gray-300 hover:text-cyan-400"
+              className="block py-2 text-gray-700 hover:text-blue-600"
               onClick={(e) => {
                 e.preventDefault();
                 document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
@@ -120,7 +120,7 @@ export default function Header() {
             </a>
             <a 
               href="#contact" 
-              className="block py-2 text-gray-300 hover:text-cyan-400"
+              className="block py-2 text-gray-700 hover:text-blue-600"
               onClick={(e) => {
                 e.preventDefault();
                 document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
