@@ -6,8 +6,8 @@ export const profile = {
     'I am a Computer Science student with hands-on experience in frontend development, UI/UX design, and full-stack project work. I enjoy building responsive applications, improving user experience, and translating ideas into practical software solutions.',
   location: 'Tamil Nadu, India',
   email: 'gowsikrajan006@gmail.com',
-  resume: '/Gowsik_R_Resume.pdf',
-  photo: '/IMG_2142.JPG',
+  resume: 'Gowsik_R_Resume.pdf',
+  photo: 'IMG_2142.JPG',
   links: {
     github: 'https://github.com/gowsikrcs23-lang',
     linkedin: 'https://www.linkedin.com/in/gowsik-r-64b2892a5/',
@@ -49,6 +49,12 @@ export const experience = [
     company: 'Litz Tech Solutions, Coimbatore',
     period: 'September 2024',
     focus: 'Worked on mobile application development workflows and gained exposure to implementation, usability, and delivery practices.'
+  },
+  {
+    role: 'Web Development Intern',
+    company: 'IO Solutions, Coimbatore',
+    period: 'January 2025',
+    focus: 'Worked on web development tasks with emphasis on building responsive interfaces, improving usability, and supporting practical project delivery.'
   }
 ];
 
@@ -138,20 +144,27 @@ export const certificates = [
     issuer: 'IEEE',
     period: '2024',
     note: 'IEEE certificate highlighting participation and learning activity related to technology and professional development.',
-    image: '/Cerificate IEEE.jpg'
+    image: 'Cerificate IEEE.jpg'
+  },
+  {
+    title: 'Code Cubic 5.0 Hackathon',
+    issuer: 'Hackathon Participation',
+    period: '2025',
+    note: 'Certificate recognizing participation in the Code Cubic 5.0 Hackathon, highlighting problem solving, teamwork, and rapid project development in a competitive event setting.',
+    image: '241CS504-TCO-27.09.2025_page-0001.jpg'
   },
   {
     title: 'Gowsik Certificate',
     issuer: 'Certification Program',
     period: '2024',
     note: 'Additional certificate showcasing participation and successful completion of a professional learning activity.',
-    image: '/Gowsik Certificate_page-0001.jpg'
+    image: 'Gowsik Certificate_page-0001.jpg'
   },
   {
     title: 'Introduction to Cybersecurity',
     issuer: 'Cisco',
     period: '2024',
     note: 'Certificate covering cybersecurity fundamentals, security awareness, threats, and core protection concepts.',
-    image: '/Introduction_to_Cybersecurity_certificate_gowsikr-cs23-bitsathy-ac-in_8ca6d508-42a3-4cea-90f9-4726049c45d3_page-0001.jpg'
+    image: 'Introduction_to_Cybersecurity_certificate_gowsikr-cs23-bitsathy-ac-in_8ca6d508-42a3-4cea-90f9-4726049c45d3_page-0001.jpg'
   }
 ];

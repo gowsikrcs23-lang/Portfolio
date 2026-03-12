@@ -24,7 +24,7 @@ export default function Hero() {
               View Projects
             </a>
             <a
-              href="/Gowsik_R_Resume.pdf"
+              href="Gowsik_R_Resume.pdf"
               download="Gowsik_R_Resume.pdf"
               className="rounded-md border border-[var(--color-line-strong)] px-5 py-3 text-sm font-semibold text-[var(--color-ink)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
             >
