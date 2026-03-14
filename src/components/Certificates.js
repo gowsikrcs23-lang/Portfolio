@@ -380,6 +380,25 @@ export default function Certificates() {
           </div>
         </div>
 
+        <div className="certificate-mobile-arrows">
+          <button
+            type="button"
+            className="certificate-mobile-arrows__button"
+            aria-label="Previous certificate"
+            onClick={() => scrollToAdjacentCard('prev')}
+          >
+            &lt;
+          </button>
+          <button
+            type="button"
+            className="certificate-mobile-arrows__button"
+            aria-label="Next certificate"
+            onClick={() => scrollToAdjacentCard('next')}
+          >
+            &gt;
+          </button>
+        </div>
+
         <div className="certificate-glide">
           <button
             type="button"
