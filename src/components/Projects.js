@@ -6,7 +6,7 @@ export default function Projects() {
       <div className="mx-auto max-w-6xl px-5 pb-20 pt-12 md:px-8 md:pb-20 md:pt-14">
         <div className="mb-12 max-w-3xl">
           <p className="section-kicker">Projects</p>
-          <h2 className="section-title">Selected project work</h2>
+          <h2 className="section-title">Project works</h2>
           <p className="mt-4 text-base leading-8 text-[var(--color-body)]">
             Projects that reflect experience in web development, UI design, and full-stack application building.
           </p>

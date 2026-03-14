@@ -1,6 +1,8 @@
 import { certificates } from '../data/portfolio';
 
 export default function Certificates() {
+  const scrollingCertificates = [...certificates, ...certificates];
+
   return (
     <section id="certificates" className="border-b border-[var(--color-line)] bg-[var(--color-softest)]">
       <div className="mx-auto max-w-6xl px-5 pb-20 pt-12 md:px-8 md:pb-20 md:pt-14">
@@ -12,9 +14,10 @@ export default function Certificates() {
           </p>
         </div>
 
-        <div className="grid gap-6 lg:grid-cols-3">
-          {certificates.map((certificate) => (
-            <article key={certificate.title} className="panel interactive-card">
+        <div className="certificate-marquee">
+          <div className="certificate-marquee__track">
+            {scrollingCertificates.map((certificate, index) => (
+              <article key={`${certificate.title}-${index}`} className="panel interactive-card certificate-marquee__card">
               {certificate.image && (
                 <img
                   src={certificate.image}
@@ -25,8 +28,9 @@ export default function Certificates() {
               <p className="text-sm font-medium text-[var(--color-accent)]">{certificate.issuer}</p>
               <h3 className="mt-3 text-xl font-semibold text-[var(--color-ink)]">{certificate.title}</h3>
               <p className="mt-4 text-sm leading-7 text-[var(--color-body)]">{certificate.note}</p>
-            </article>
-          ))}
+              </article>
+            ))}
+          </div>
         </div>
       </div>
     </section>

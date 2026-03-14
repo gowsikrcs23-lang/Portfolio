@@ -18,7 +18,7 @@ export const profile = {
 
 export const stats = [
   { value: '05', label: 'Projects completed' },
-  { value: '02', label: 'Internships' },
+  { value: '03', label: 'Internships' },
   { value: '2023', label: 'B.E. CSE started' }
 ];
 
