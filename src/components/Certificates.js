@@ -3,11 +3,50 @@ import { certificates } from '../data/portfolio';
 
 export default function Certificates() {
   const [activeCertificate, setActiveCertificate] = useState(null);
-  const [progress, setProgress] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
   const [isInteracting, setIsInteracting] = useState(false);
+  const [isMobileView, setIsMobileView] = useState(false);
+  const [marqueeProgress, setMarqueeProgress] = useState(0);
+  const [modalScroll, setModalScroll] = useState({
+    handleHeight: 72,
+    handleTop: 0
+  });
   const marqueeRef = useRef(null);
   const contentRef = useRef(null);
-  const scrollingCertificates = [...certificates, ...certificates];
+  const controlTrackRef = useRef(null);
+  const pointerStateRef = useRef({
+    isDragging: false,
+    startX: 0,
+    startScrollLeft: 0
+  });
+  const controlPointerRef = useRef({
+    isDragging: false
+  });
+  const mobileDirectionRef = useRef(1);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767px)');
+
+    const syncViewport = (event) => {
+      setIsMobileView(event.matches);
+    };
+
+    setIsMobileView(mediaQuery.matches);
+
+    if (typeof mediaQuery.addEventListener === 'function') {
+      mediaQuery.addEventListener('change', syncViewport);
+
+      return () => {
+        mediaQuery.removeEventListener('change', syncViewport);
+      };
+    }
+
+    mediaQuery.addListener(syncViewport);
+
+    return () => {
+      mediaQuery.removeListener(syncViewport);
+    };
+  }, []);
 
   useEffect(() => {
     if (!activeCertificate) {
@@ -36,6 +75,21 @@ export default function Certificates() {
       return undefined;
     }
 
+    const updateModalScroll = () => {
+      const visibleHeight = content.clientHeight;
+      const totalHeight = content.scrollHeight;
+      const trackHeight = Math.max(visibleHeight - 24, 72);
+      const handleHeight = Math.max((visibleHeight / totalHeight) * trackHeight, 72);
+      const maxHandleTop = Math.max(trackHeight - handleHeight, 0);
+      const maxScrollTop = Math.max(totalHeight - visibleHeight, 1);
+      const handleTop = (content.scrollTop / maxScrollTop) * maxHandleTop;
+
+      setModalScroll({
+        handleHeight,
+        handleTop
+      });
+    };
+
     const handleWheel = (event) => {
       event.preventDefault();
       content.scrollBy({
@@ -44,10 +98,20 @@ export default function Certificates() {
       });
     };
 
+    const handleScroll = () => {
+      updateModalScroll();
+    };
+
     content.addEventListener('wheel', handleWheel, { passive: false });
+    content.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', updateModalScroll);
+    content.scrollTop = 0;
+    updateModalScroll();
 
     return () => {
       content.removeEventListener('wheel', handleWheel);
+      content.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', updateModalScroll);
     };
   }, [activeCertificate]);
 
@@ -60,13 +124,36 @@ export default function Certificates() {
     let animationFrameId;
     let lastTimestamp = 0;
 
-    const syncProgress = () => {
-      const halfWidth = marquee.scrollWidth / 2;
-      if (!halfWidth) {
+    const updateActiveIndex = () => {
+      const cards = marquee.querySelectorAll('.certificate-marquee__card');
+      if (!cards.length) {
         return;
       }
 
-      setProgress((marquee.scrollLeft / halfWidth) * 100);
+      const cardWidth = cards[0].offsetWidth;
+      const cardGap = 24;
+      const cardSpan = cardWidth + cardGap;
+      const nextIndex = Math.round(marquee.scrollLeft / cardSpan);
+      const maxIndex = certificates.length - 1;
+
+      setActiveIndex(Math.max(0, Math.min(nextIndex, maxIndex)));
+    };
+
+    const updateProgress = () => {
+      const maxScrollLeft = Math.max(marquee.scrollWidth - marquee.clientWidth, 1);
+      setMarqueeProgress((marquee.scrollLeft / maxScrollLeft) * 100);
+    };
+
+    const handleWheel = (event) => {
+      if (Math.abs(event.deltaY) <= Math.abs(event.deltaX)) {
+        return;
+      }
+
+      event.preventDefault();
+      marquee.scrollBy({
+        left: event.deltaY,
+        behavior: 'smooth'
+      });
     };
 
     const step = (timestamp) => {
@@ -78,38 +165,165 @@ export default function Certificates() {
       lastTimestamp = timestamp;
 
       if (!activeCertificate && !isInteracting) {
-        marquee.scrollLeft += delta * 0.05;
-        const halfWidth = marquee.scrollWidth / 2;
+        const maxScrollLeft = marquee.scrollWidth - marquee.clientWidth;
+        if (maxScrollLeft > 0) {
+          if (isMobileView) {
+            marquee.scrollLeft += mobileDirectionRef.current * delta * 0.02;
 
-        if (marquee.scrollLeft >= halfWidth) {
-          marquee.scrollLeft -= halfWidth;
+            if (marquee.scrollLeft >= maxScrollLeft) {
+              marquee.scrollLeft = maxScrollLeft;
+              mobileDirectionRef.current = -1;
+            } else if (marquee.scrollLeft <= 0) {
+              marquee.scrollLeft = 0;
+              mobileDirectionRef.current = 1;
+            }
+          } else {
+            marquee.scrollLeft += delta * 0.015;
+
+            if (marquee.scrollLeft >= maxScrollLeft) {
+              marquee.scrollLeft = 0;
+            }
+          }
+
+          updateActiveIndex();
         }
-
-        syncProgress();
       }
 
       animationFrameId = window.requestAnimationFrame(step);
     };
 
-    marquee.scrollLeft = 0;
-    syncProgress();
+    const handleScroll = () => {
+      updateActiveIndex();
+      updateProgress();
+    };
+
+    marquee.addEventListener('wheel', handleWheel, { passive: false });
+    marquee.addEventListener('scroll', handleScroll);
     animationFrameId = window.requestAnimationFrame(step);
+    updateActiveIndex();
+    updateProgress();
 
     return () => {
+      marquee.removeEventListener('wheel', handleWheel);
+      marquee.removeEventListener('scroll', handleScroll);
       window.cancelAnimationFrame(animationFrameId);
     };
-  }, [activeCertificate, isInteracting]);
+  }, [activeCertificate, isInteracting, isMobileView]);
 
-  const handleSliderChange = (event) => {
+  const beginDrag = (event) => {
     const marquee = marqueeRef.current;
     if (!marquee) {
       return;
     }
 
-    const nextProgress = Number(event.target.value);
-    const halfWidth = marquee.scrollWidth / 2;
-    marquee.scrollLeft = (nextProgress / 100) * halfWidth;
-    setProgress(nextProgress);
+    pointerStateRef.current = {
+      isDragging: true,
+      startX: event.clientX,
+      startScrollLeft: marquee.scrollLeft
+    };
+
+    setIsInteracting(true);
+    marquee.setPointerCapture(event.pointerId);
+  };
+
+  const onDrag = (event) => {
+    const marquee = marqueeRef.current;
+    const pointerState = pointerStateRef.current;
+
+    if (!marquee || !pointerState.isDragging) {
+      return;
+    }
+
+    const deltaX = event.clientX - pointerState.startX;
+    marquee.scrollLeft = pointerState.startScrollLeft - deltaX;
+  };
+
+  const endDrag = (event) => {
+    const marquee = marqueeRef.current;
+    if (!marquee) {
+      return;
+    }
+
+    pointerStateRef.current.isDragging = false;
+    setIsInteracting(false);
+
+    if (marquee.hasPointerCapture(event.pointerId)) {
+      marquee.releasePointerCapture(event.pointerId);
+    }
+  };
+
+  const scrollToCard = (index) => {
+    const marquee = marqueeRef.current;
+    if (!marquee) {
+      return;
+    }
+
+    const cards = marquee.querySelectorAll('.certificate-marquee__card');
+    const nextCard = cards[index];
+
+    if (!nextCard) {
+      return;
+    }
+
+    setActiveIndex(index);
+    setIsInteracting(true);
+    marquee.scrollTo({
+      left: nextCard.offsetLeft,
+      behavior: 'smooth'
+    });
+
+    window.setTimeout(() => {
+      setIsInteracting(false);
+    }, 400);
+  };
+
+  const scrollToAdjacentCard = (direction) => {
+    const nextIndex = direction === 'next'
+      ? Math.min(activeIndex + 1, certificates.length - 1)
+      : Math.max(activeIndex - 1, 0);
+
+    scrollToCard(nextIndex);
+  };
+
+  const setScrollFromClientX = (clientX) => {
+    const marquee = marqueeRef.current;
+    const track = controlTrackRef.current;
+    if (!marquee || !track) {
+      return;
+    }
+
+    const rect = track.getBoundingClientRect();
+    const ratio = Math.min(Math.max((clientX - rect.left) / rect.width, 0), 1);
+    const maxScrollLeft = Math.max(marquee.scrollWidth - marquee.clientWidth, 0);
+
+    marquee.scrollTo({
+      left: ratio * maxScrollLeft,
+      behavior: 'auto'
+    });
+  };
+
+  const beginControlDrag = (event) => {
+    controlPointerRef.current.isDragging = true;
+    setIsInteracting(true);
+    event.currentTarget.setPointerCapture(event.pointerId);
+    setScrollFromClientX(event.clientX);
+  };
+
+  const onControlDrag = (event) => {
+    if (!controlPointerRef.current.isDragging) {
+      return;
+    }
+
+    setScrollFromClientX(event.clientX);
+  };
+
+  const endControlDrag = (event) => {
+    controlPointerRef.current.isDragging = false;
+    setIsInteracting(false);
+
+    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId);
+    }
   };
 
   return (
@@ -123,12 +337,21 @@ export default function Certificates() {
           </p>
         </div>
 
-        <div ref={marqueeRef} className="certificate-marquee" aria-label="Certificates gallery">
+        <div
+          ref={marqueeRef}
+          className={`certificate-marquee${isInteracting ? ' is-dragging' : ''}`}
+          aria-label="Certificates gallery"
+          onPointerDown={beginDrag}
+          onPointerMove={onDrag}
+          onPointerUp={endDrag}
+          onPointerLeave={endDrag}
+        >
           <div className="certificate-marquee__track">
-            {scrollingCertificates.map((certificate, index) => (
+            {certificates.map((certificate, index) => (
               <article
-                key={`${certificate.title}-${index}`}
+                key={certificate.title}
                 className="panel interactive-card certificate-marquee__card text-left"
+                aria-label={`Certificate ${index + 1} of ${certificates.length}`}
               >
                 {certificate.image && (
                   <img
@@ -157,20 +380,36 @@ export default function Certificates() {
           </div>
         </div>
 
-        <div className="certificate-slider">
-          <span className="certificate-slider__label">Move Certificates</span>
-          <input
-            type="range"
-            min="0"
-            max="100"
-            step="0.1"
-            value={progress}
-            className="certificate-slider__input"
-            onChange={handleSliderChange}
-            onPointerDown={() => setIsInteracting(true)}
-            onPointerUp={() => setIsInteracting(false)}
-            onBlur={() => setIsInteracting(false)}
-          />
+        <div className="certificate-glide">
+          <button
+            type="button"
+            className="certificate-glide__edge"
+            aria-label="Previous certificate"
+            onClick={() => scrollToAdjacentCard('prev')}
+          >
+            Prev
+          </button>
+          <div
+            ref={controlTrackRef}
+            className="certificate-glide__track"
+            aria-label="Certificate horizontal scroll control"
+            onPointerDown={beginControlDrag}
+            onPointerMove={onControlDrag}
+            onPointerUp={endControlDrag}
+            onPointerLeave={endControlDrag}
+          >
+            <div className="certificate-glide__fill" style={{ width: `${marqueeProgress}%` }} />
+            <div className="certificate-glide__thumb" style={{ left: `${marqueeProgress}%` }} />
+            <span className="certificate-glide__hint">drag to browse</span>
+          </div>
+          <button
+            type="button"
+            className="certificate-glide__edge"
+            aria-label="Next certificate"
+            onClick={() => scrollToAdjacentCard('next')}
+          >
+            Next
+          </button>
         </div>
       </div>
 
@@ -203,37 +442,48 @@ export default function Certificates() {
                 )}
               </div>
 
-              <div ref={contentRef} className="certificate-modal__content">
-                <p className="text-sm font-medium uppercase tracking-[0.18em] text-[var(--color-accent)]">
-                  {activeCertificate.issuer}
-                </p>
-                <h3 id="certificate-modal-title" className="mt-3 text-3xl font-semibold text-[var(--color-ink)]">
-                  {activeCertificate.title}
-                </h3>
-                <p className="mt-3 text-sm font-medium text-[var(--color-muted)]">{activeCertificate.period}</p>
-                <div className="mt-6 grid gap-4 text-sm text-[var(--color-body)] sm:grid-cols-2">
-                  <div className="rounded-lg border border-[var(--color-line)] bg-white p-4">
-                    <p className="text-xs uppercase tracking-[0.18em] text-[var(--color-muted)]">Credential</p>
-                    <p className="mt-2 font-medium text-[var(--color-ink)]">{activeCertificate.credential}</p>
+              <div className="certificate-modal__content-shell">
+                <div ref={contentRef} className="certificate-modal__content">
+                  <p className="text-sm font-medium uppercase tracking-[0.18em] text-[var(--color-accent)]">
+                    {activeCertificate.issuer}
+                  </p>
+                  <h3 id="certificate-modal-title" className="mt-3 text-3xl font-semibold text-[var(--color-ink)]">
+                    {activeCertificate.title}
+                  </h3>
+                  <p className="mt-3 text-sm font-medium text-[var(--color-muted)]">{activeCertificate.period}</p>
+                  <div className="mt-6 grid gap-4 text-sm text-[var(--color-body)] sm:grid-cols-2">
+                    <div className="rounded-lg border border-[var(--color-line)] bg-white p-4">
+                      <p className="text-xs uppercase tracking-[0.18em] text-[var(--color-muted)]">Credential</p>
+                      <p className="mt-2 font-medium text-[var(--color-ink)]">{activeCertificate.credential}</p>
+                    </div>
+                    <div className="rounded-lg border border-[var(--color-line)] bg-white p-4">
+                      <p className="text-xs uppercase tracking-[0.18em] text-[var(--color-muted)]">Organization</p>
+                      <p className="mt-2 font-medium text-[var(--color-ink)]">{activeCertificate.organization}</p>
+                    </div>
                   </div>
-                  <div className="rounded-lg border border-[var(--color-line)] bg-white p-4">
-                    <p className="text-xs uppercase tracking-[0.18em] text-[var(--color-muted)]">Organization</p>
-                    <p className="mt-2 font-medium text-[var(--color-ink)]">{activeCertificate.organization}</p>
+                  <p className="mt-6 text-base leading-8 text-[var(--color-body)]">{activeCertificate.description}</p>
+                  <div className="mt-6 rounded-xl border border-[var(--color-line)] bg-white p-5">
+                    <p className="text-xs uppercase tracking-[0.18em] text-[var(--color-muted)]">Highlights</p>
+                    <ul className="mt-4 grid gap-3 text-sm leading-7 text-[var(--color-body)]">
+                      {activeCertificate.highlights.map((highlight) => (
+                        <li key={highlight} className="flex gap-3">
+                          <span className="mt-2 h-2 w-2 rounded-full bg-[var(--color-accent)]" />
+                          <span>{highlight}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
+                  <p className="mt-6 text-sm leading-7 text-[var(--color-muted)]">{activeCertificate.note}</p>
                 </div>
-                <p className="mt-6 text-base leading-8 text-[var(--color-body)]">{activeCertificate.description}</p>
-                <div className="mt-6 rounded-xl border border-[var(--color-line)] bg-white p-5">
-                  <p className="text-xs uppercase tracking-[0.18em] text-[var(--color-muted)]">Highlights</p>
-                  <ul className="mt-4 grid gap-3 text-sm leading-7 text-[var(--color-body)]">
-                    {activeCertificate.highlights.map((highlight) => (
-                      <li key={highlight} className="flex gap-3">
-                        <span className="mt-2 h-2 w-2 rounded-full bg-[var(--color-accent)]" />
-                        <span>{highlight}</span>
-                      </li>
-                    ))}
-                  </ul>
+                <div className="certificate-modal__scroll-line" aria-hidden="true">
+                  <div
+                    className="certificate-modal__scroll-handle"
+                    style={{
+                      height: `${modalScroll.handleHeight}px`,
+                      transform: `translateY(${modalScroll.handleTop}px)`
+                    }}
+                  />
                 </div>
-                <p className="mt-6 text-sm leading-7 text-[var(--color-muted)]">{activeCertificate.note}</p>
               </div>
             </div>
           </div>
