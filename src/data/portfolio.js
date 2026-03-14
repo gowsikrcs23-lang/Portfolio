@@ -144,27 +144,63 @@ export const certificates = [
     issuer: 'IEEE',
     period: '2024',
     note: 'IEEE certificate highlighting participation and learning activity related to technology and professional development.',
-    image: 'Cerificate IEEE.jpg'
+    image: 'Cerificate IEEE.jpg',
+    credential: 'Professional participation certificate',
+    organization: 'IEEE student activity program',
+    description:
+      'This certificate reflects active participation in an IEEE-led learning experience focused on technology awareness, professional growth, and engagement with the technical community.',
+    highlights: [
+      'Participated in a technology-centered professional learning activity.',
+      'Improved awareness of engineering communities and industry practices.',
+      'Strengthened professional development through guided engagement.'
+    ]
   },
   {
     title: 'Code Cubic 5.0 Hackathon',
     issuer: 'Hackathon Participation',
     period: '2025',
     note: 'Certificate recognizing participation in the Code Cubic 5.0 Hackathon, highlighting problem solving, teamwork, and rapid project development in a competitive event setting.',
-    image: '241CS504-TCO-27.09.2025_page-0001.jpg'
+    image: '241CS504-TCO-27.09.2025_page-0001.jpg',
+    credential: 'Hackathon participation certificate',
+    organization: 'Code Cubic 5.0',
+    description:
+      'Awarded for active participation in a hackathon environment that required fast ideation, teamwork, and practical solution building within limited time.',
+    highlights: [
+      'Worked in a rapid development and competitive event setting.',
+      'Applied teamwork, presentation, and problem-solving skills.',
+      'Built experience delivering ideas under time constraints.'
+    ]
   },
   {
-    title: 'Gowsik Certificate',
-    issuer: 'Certification Program',
+    title: 'Hackspark-codethon',
+    issuer: 'Hackspark Codethon',
     period: '2024',
-    note: 'Additional certificate showcasing participation and successful completion of a professional learning activity.',
-    image: 'Gowsik Certificate_page-0001.jpg'
+    note: 'Certificate recognizing participation in the Hackspark Codethon event and involvement in practical problem solving and collaborative development.',
+    image: 'Gowsik Certificate_page-0001.jpg',
+    credential: 'Event participation certificate',
+    organization: 'Hackspark Codethon',
+    description:
+      'This certificate highlights participation in the Hackspark Codethon program, with focus on coding, teamwork, and practical execution in an event-based environment.',
+    highlights: [
+      'Participated in a coding-focused collaborative event.',
+      'Applied problem solving and development skills in practice.',
+      'Gained experience working in an event-driven technical setting.'
+    ]
   },
   {
     title: 'Introduction to Cybersecurity',
     issuer: 'Cisco',
     period: '2024',
     note: 'Certificate covering cybersecurity fundamentals, security awareness, threats, and core protection concepts.',
-    image: 'Introduction_to_Cybersecurity_certificate_gowsikr-cs23-bitsathy-ac-in_8ca6d508-42a3-4cea-90f9-4726049c45d3_page-0001.jpg'
+    image: 'Introduction_to_Cybersecurity_certificate_gowsikr-cs23-bitsathy-ac-in_8ca6d508-42a3-4cea-90f9-4726049c45d3_page-0001.jpg',
+    credential: 'Cybersecurity fundamentals certificate',
+    organization: 'Cisco Networking Academy',
+    description:
+      'Focused on core cybersecurity concepts including digital safety, common security threats, and the foundational practices used to protect systems and information.',
+    highlights: [
+      'Learned key cybersecurity concepts and common threat types.',
+      'Improved awareness of safe digital practices and protection methods.',
+      'Built a stronger foundation for further security learning.'
+    ]
   }
 ];
