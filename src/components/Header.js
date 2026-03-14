@@ -32,18 +32,18 @@ export default function Header() {
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-[var(--color-line)] bg-white">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-5 md:px-8 md:py-4">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-5 md:px-8 md:py-3">
         <button type="button" className="text-left" onClick={() => handleScroll('home')}>
           <span className="block text-lg font-semibold text-[var(--color-ink)]">{profile.name}</span>
           <span className="block text-xs text-[var(--color-muted)]">{profile.title}</span>
         </button>
 
-        <div className="hidden items-center gap-8 md:flex">
+        <div className="hidden items-center gap-1.5 rounded-full border border-[rgba(37,99,235,0.18)] bg-[var(--color-softest)] px-2 py-1.5 shadow-[0_8px_18px_rgba(15,23,42,0.04)] md:inline-flex">
           {navItems.map(([id, label]) => (
             <button
               key={id}
               type="button"
-              className="nav-glow text-sm text-[var(--color-body)]"
+              className="nav-glow rounded-full border border-[rgba(37,99,235,0.22)] bg-white px-2.5 py-1 text-[13px] font-medium text-[var(--color-body)]"
               onClick={() => handleScroll(id)}
             >
               {label}

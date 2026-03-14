@@ -3,7 +3,7 @@ import { projects } from '../data/portfolio';
 export default function Projects() {
   return (
     <section id="projects" className="border-b border-[var(--color-line)] bg-[var(--color-softest)]">
-      <div className="mx-auto max-w-6xl px-5 pb-20 pt-12 md:px-8 md:pb-20 md:pt-14">
+      <div className="mx-auto max-w-6xl px-5 pb-20 pt-0 md:px-8 md:pb-20 md:pt-2">
         <div className="mb-12 max-w-3xl">
           <p className="section-kicker">Projects</p>
           <h2 className="section-title">Project works</h2>

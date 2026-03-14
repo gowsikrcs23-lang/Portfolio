@@ -97,7 +97,7 @@ const skillIcons = {
 export default function Skills() {
   return (
     <section id="skills" className="border-b border-[var(--color-line)] bg-white">
-      <div className="mx-auto max-w-6xl px-5 pb-20 pt-12 md:px-8 md:pb-20 md:pt-14">
+      <div className="mx-auto max-w-6xl px-5 pb-20 pt-0 md:px-8 md:pb-20 md:pt-2">
         <div className="mb-12 max-w-3xl">
           <p className="section-kicker">Skills</p>
           <h2 className="section-title">Technical capabilities</h2>

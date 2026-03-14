@@ -3,7 +3,7 @@ import { education, experience, highlights } from '../data/portfolio';
 export default function About() {
   return (
     <section id="about" className="border-b border-[var(--color-line)] bg-[var(--color-softest)]">
-      <div className="mx-auto max-w-6xl px-5 pb-20 pt-12 md:px-8 md:pb-20 md:pt-14">
+      <div className="mx-auto max-w-6xl px-5 pb-20 pt-0 md:px-8 md:pb-20 md:pt-2">
         <div>
           <p className="section-kicker">About</p>
           <h2 className="section-title">Professional background and academic foundation</h2>

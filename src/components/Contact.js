@@ -32,7 +32,7 @@ const links = [
 export default function Contact() {
   return (
     <section id="contact" className="flex min-h-[calc(100vh-76px)] flex-col justify-between bg-white">
-      <div className="mx-auto w-full max-w-6xl flex-1 px-5 pb-12 pt-12 md:px-8 md:pt-14">
+      <div className="mx-auto w-full max-w-6xl flex-1 px-5 pb-12 pt-0 md:px-8 md:pt-2">
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
           <div className="max-w-xl">
             <p className="section-kicker">Contact</p>
@@ -62,10 +62,11 @@ export default function Contact() {
             <div className="mt-5 flex flex-wrap justify-center gap-4 sm:justify-start">
               <a
                 href={profile.resume}
-                download="Gowsik_R_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="rounded-md bg-[var(--color-ink)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--color-accent)] hover:text-[var(--color-ink)]"
               >
-                Download Resume
+                View Resume
               </a>
               <a
                 href={profile.links.mail}

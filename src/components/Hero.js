@@ -3,7 +3,7 @@ import { profile, stats } from '../data/portfolio';
 export default function Hero() {
   return (
     <section id="home" className="hero-surface border-b border-[var(--color-line)] bg-white">
-      <div className="mx-auto grid max-w-6xl gap-12 px-5 pb-20 pt-10 md:px-8 md:pb-24 md:pt-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:pb-28 lg:pt-16">
+      <div className="mx-auto grid max-w-6xl gap-12 px-5 pb-20 pt-0 md:px-8 md:pb-24 md:pt-2 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:pb-28 lg:pt-4">
         <div>
           <p className="mb-4 text-sm font-medium uppercase tracking-[0.22em] text-[var(--color-accent)]">
             Professional Portfolio
@@ -23,25 +23,32 @@ export default function Hero() {
             >
               View Projects
             </a>
+          </div>
+
+          <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-[var(--color-muted)]">
+            <span className="rounded-full border border-[var(--color-line)] bg-white px-3 py-1.5">
+              {profile.location}
+            </span>
+            <span className="rounded-full border border-[var(--color-line)] bg-white px-3 py-1.5">
+              Open to internships
+            </span>
             <a
-              href="Gowsik_R_Resume.pdf"
-              download="Gowsik_R_Resume.pdf"
-              className="rounded-md border border-[var(--color-line-strong)] px-5 py-3 text-sm font-semibold text-[var(--color-ink)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
+              href="#contact"
+              className="rounded-full border border-[rgba(37,99,235,0.24)] bg-[rgba(37,99,235,0.05)] px-3 py-1.5 font-medium text-[var(--color-accent)]"
             >
-              Download Resume
+              Resume in contact
             </a>
           </div>
+
         </div>
 
         <div className="relative">
           <div className="hero-visual">
-            <div className="hero-grid-lines" />
-
             <div className="hero-stats">
               {stats.map((stat) => (
                 <div key={stat.label} className="hero-stat-card">
-                  <div className="text-3xl font-semibold text-[var(--color-ink)]">{stat.value}</div>
-                  <div className="mt-2 text-sm text-[var(--color-muted)]">{stat.label}</div>
+                  <div className="hero-stat-card__value">{stat.value}</div>
+                  <div className="hero-stat-card__label">{stat.label}</div>
                 </div>
               ))}
             </div>
