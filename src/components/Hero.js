@@ -19,7 +19,7 @@ export default function Hero() {
           <div className="mt-8 flex flex-wrap gap-4">
             <a
               href="#projects"
-              className="rounded-md bg-[var(--color-ink)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--color-accent)] hover:text-[var(--color-ink)]"
+              className="rounded-md bg-[var(--color-ink)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--color-accent)] hover:text-white"
             >
               View Projects
             </a>
@@ -45,12 +45,21 @@ export default function Hero() {
         <div className="relative">
           <div className="hero-visual">
             <div className="hero-stats">
-              {stats.map((stat) => (
-                <div key={stat.label} className="hero-stat-card">
-                  <div className="hero-stat-card__value">{stat.value}</div>
-                  <div className="hero-stat-card__label">{stat.label}</div>
-                </div>
-              ))}
+              <div className="hero-stats__header">
+                <p className="hero-stats__eyebrow">Professional Snapshot</p>
+                <h2 className="hero-stats__title">Highlights at a glance</h2>
+              </div>
+              <div className="hero-stats__list">
+                {stats.map((stat) => (
+                  <div key={stat.label} className="hero-stat-card">
+                    <div className="hero-stat-card__value">{stat.value}</div>
+                    <div className="hero-stat-card__content">
+                      <div className="hero-stat-card__label">{stat.label}</div>
+                      <p className="hero-stat-card__note">{stat.note}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>

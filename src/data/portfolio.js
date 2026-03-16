@@ -17,9 +17,21 @@ export const profile = {
 };
 
 export const stats = [
-  { value: '05', label: 'Projects completed' },
-  { value: '03', label: 'Internships' },
-  { value: '2023', label: 'B.E. CSE started' }
+  {
+    value: '05',
+    label: 'Projects Delivered',
+    note: 'Built projects across web development, UI/UX, and full-stack implementation.'
+  },
+  {
+    value: '03',
+    label: 'Internship Experiences',
+    note: 'Gained exposure to web, mobile, and full-stack development environments.'
+  },
+  {
+    value: '2023',
+    label: 'B.E. CSE',
+    note: 'Started the undergraduate program and continued building core engineering skills.'
+  }
 ];
 
 export const education = [

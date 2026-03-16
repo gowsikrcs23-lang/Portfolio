@@ -218,66 +218,75 @@ export default function Certificates() {
           </p>
         </div>
 
-        <div
-          ref={marqueeRef}
-          className={`certificate-marquee${mobileSwipeDirection ? ` is-swipe-${mobileSwipeDirection}` : ''}`}
-          aria-label="Certificates gallery"
-        >
-          <div className="certificate-marquee__track">
-            {certificates.map((certificate, index) => (
-              <article
-                key={certificate.title}
-                className="panel interactive-card certificate-marquee__card text-left"
-                aria-label={`Certificate ${index + 1} of ${certificates.length}`}
-              >
-                {certificate.image && (
-                  <img
-                    src={certificate.image}
-                    alt={certificate.title}
-                    className="mb-5 h-44 w-full rounded-lg border border-[var(--color-line)] object-cover object-top"
-                  />
-                )}
-                <p className="text-sm font-medium text-[var(--color-accent)]">{certificate.issuer}</p>
-                <h3 className="mt-3 text-xl font-semibold text-[var(--color-ink)]">{certificate.title}</h3>
-                <p className="mt-4 text-sm leading-7 text-[var(--color-body)]">{certificate.note}</p>
-                <div className="mt-5 flex items-center justify-between gap-3">
-                  <button
-                    type="button"
-                    className="certificate-card__action"
-                    onClick={() => setActiveCertificate(certificate)}
-                  >
-                    View Details
-                  </button>
-                  <span className="certificate-card__arrow" aria-hidden="true">
-                    &gt;
-                  </span>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-
-        <div className="certificate-nav" aria-label="Certificate navigation">
+        <div className="certificate-gallery-shell">
           <button
             type="button"
-            className="certificate-nav__button"
+            className="certificate-nav__button certificate-nav__button--side"
             aria-label="Previous certificate"
             onClick={() => scrollToAdjacentCard('prev')}
           >
             &lt;
           </button>
-          <span className="certificate-nav__status" aria-live="polite">
-            {activeIndex + 1} of {certificates.length}
-          </span>
+
+          <div
+            ref={marqueeRef}
+            className={`certificate-marquee${mobileSwipeDirection ? ` is-swipe-${mobileSwipeDirection}` : ''}`}
+            aria-label="Certificates gallery"
+          >
+            <div className="certificate-marquee__track">
+              {certificates.map((certificate, index) => (
+                <article
+                  key={certificate.title}
+                  className="panel interactive-card certificate-marquee__card text-left"
+                  aria-label={`Certificate ${index + 1} of ${certificates.length}`}
+                >
+                  {certificate.image && (
+                    <div className="certificate-card__image-frame mb-4">
+                      <img
+                        src={certificate.image}
+                        alt={certificate.title}
+                        className={`certificate-card__image${
+                          certificate.title === 'Hackspark-codethon'
+                            ? ' certificate-card__image--hackspark'
+                            : ''
+                        }`}
+                      />
+                    </div>
+                  )}
+                  <p className="text-sm font-medium text-[var(--color-accent)]">{certificate.issuer}</p>
+                  <h3 className="mt-3 text-xl font-semibold text-[var(--color-ink)]">{certificate.title}</h3>
+                  <p className="mt-4 text-sm leading-7 text-[var(--color-body)]">{certificate.note}</p>
+                  <div className="mt-5 flex items-center justify-between gap-3">
+                    <button
+                      type="button"
+                      className="certificate-card__action"
+                      onClick={() => setActiveCertificate(certificate)}
+                    >
+                      View Details
+                    </button>
+                    <span className="certificate-card__arrow" aria-hidden="true">
+                      &gt;
+                    </span>
+                  </div>
+                  <div className="certificate-card__index" aria-hidden="true">
+                    {index + 1} / {certificates.length}
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
           <button
             type="button"
-            className="certificate-nav__button"
+            className="certificate-nav__button certificate-nav__button--side"
             aria-label="Next certificate"
             onClick={() => scrollToAdjacentCard('next')}
           >
             &gt;
           </button>
         </div>
+
+        <div className="certificate-nav" aria-label="Certificate navigation" />
       </div>
 
       {activeCertificate && (

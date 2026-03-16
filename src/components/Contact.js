@@ -64,7 +64,7 @@ export default function Contact() {
                 href={profile.resume}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-md bg-[var(--color-ink)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--color-accent)] hover:text-[var(--color-ink)]"
+                className="rounded-md bg-[var(--color-ink)] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[var(--color-accent)] hover:text-white"
               >
                 View Resume
               </a>
