@@ -49,17 +49,17 @@ export default function Hero() {
                 <p className="hero-stats__eyebrow">Professional Snapshot</p>
                 <h2 className="hero-stats__title">Highlights at a glance</h2>
               </div>
-              <div className="hero-stats__list">
+              <ul className="hero-stats__list">
                 {stats.map((stat) => (
-                  <div key={stat.label} className="hero-stat-card">
+                  <li key={stat.label} className="hero-stat-card">
                     <div className="hero-stat-card__value">{stat.value}</div>
                     <div className="hero-stat-card__content">
                       <div className="hero-stat-card__label">{stat.label}</div>
                       <p className="hero-stat-card__note">{stat.note}</p>
                     </div>
-                  </div>
+                  </li>
                 ))}
-              </div>
+              </ul>
             </div>
           </div>
         </div>
