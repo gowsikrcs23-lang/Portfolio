@@ -24,6 +24,7 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
+  min-height: 100%;
   overflow-x: hidden;
   background: #ffffff;
   color: var(--color-ink);
@@ -35,7 +36,22 @@ body {
 
 #root {
   width: 100%;
+  min-height: 100%;
   overflow-x: hidden;
+}
+
+main,
+section,
+header,
+footer {
+  width: 100%;
+}
+
+img,
+video,
+canvas {
+  max-width: 100%;
+  height: auto;
 }
 
 .robot-nav {
