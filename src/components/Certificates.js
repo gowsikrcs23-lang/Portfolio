@@ -3,49 +3,11 @@ import { certificates } from '../data/portfolio';
 
 export default function Certificates() {
   const [activeCertificate, setActiveCertificate] = useState(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isInteracting, setIsInteracting] = useState(false);
-  const [isMobileView, setIsMobileView] = useState(false);
-  const [mobileSwipeDirection, setMobileSwipeDirection] = useState('');
   const [modalScroll, setModalScroll] = useState({
     handleHeight: 72,
     handleTop: 0
   });
-  const marqueeRef = useRef(null);
   const contentRef = useRef(null);
-  const swipeTimeoutRef = useRef(null);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 767px)');
-
-    const syncViewport = (event) => {
-      setIsMobileView(event.matches);
-    };
-
-    setIsMobileView(mediaQuery.matches);
-
-    if (typeof mediaQuery.addEventListener === 'function') {
-      mediaQuery.addEventListener('change', syncViewport);
-
-      return () => {
-        mediaQuery.removeEventListener('change', syncViewport);
-      };
-    }
-
-    mediaQuery.addListener(syncViewport);
-
-    return () => {
-      mediaQuery.removeListener(syncViewport);
-    };
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      if (swipeTimeoutRef.current) {
-        window.clearTimeout(swipeTimeoutRef.current);
-      }
-    };
-  }, []);
 
   useEffect(() => {
     if (!activeCertificate) {
@@ -115,97 +77,8 @@ export default function Certificates() {
   }, [activeCertificate]);
 
   useEffect(() => {
-    const marquee = marqueeRef.current;
-    if (!marquee) {
-      return undefined;
-    }
-
-    let animationFrameId;
-    let lastTimestamp = 0;
-
-    const updateActiveIndex = () => {
-      const cards = marquee.querySelectorAll('.certificate-marquee__card');
-      if (!cards.length) {
-        return;
-      }
-
-      const cardWidth = cards[0].offsetWidth;
-      const cardGap = 24;
-      const cardSpan = cardWidth + cardGap;
-      const nextIndex = Math.round(marquee.scrollLeft / cardSpan);
-      const maxIndex = certificates.length - 1;
-
-      setActiveIndex(Math.max(0, Math.min(nextIndex, maxIndex)));
-    };
-
-    const step = (timestamp) => {
-      if (!lastTimestamp) {
-        lastTimestamp = timestamp;
-      }
-
-      lastTimestamp = timestamp;
-
-      animationFrameId = window.requestAnimationFrame(step);
-    };
-
-    const handleScroll = () => {
-      updateActiveIndex();
-    };
-
-    marquee.addEventListener('scroll', handleScroll);
-    animationFrameId = window.requestAnimationFrame(step);
-    updateActiveIndex();
-
-    return () => {
-      marquee.removeEventListener('scroll', handleScroll);
-      window.cancelAnimationFrame(animationFrameId);
-    };
-  }, [activeCertificate, isInteracting, isMobileView]);
-
-  const scrollToCard = (index) => {
-    const marquee = marqueeRef.current;
-    if (!marquee) {
-      return;
-    }
-
-    const cards = marquee.querySelectorAll('.certificate-marquee__card');
-    const nextCard = cards[index];
-
-    if (!nextCard) {
-      return;
-    }
-
-    setActiveIndex(index);
-    setIsInteracting(true);
-    marquee.scrollTo({
-      left: nextCard.offsetLeft,
-      behavior: 'smooth'
-    });
-
-    window.setTimeout(() => {
-      setIsInteracting(false);
-    }, 400);
-  };
-
-  const scrollToAdjacentCard = (direction) => {
-    const nextIndex = direction === 'next'
-      ? Math.min(activeIndex + 1, certificates.length - 1)
-      : Math.max(activeIndex - 1, 0);
-
-    if (isMobileView) {
-      setMobileSwipeDirection(direction);
-
-      if (swipeTimeoutRef.current) {
-        window.clearTimeout(swipeTimeoutRef.current);
-      }
-
-      swipeTimeoutRef.current = window.setTimeout(() => {
-        setMobileSwipeDirection('');
-      }, 320);
-    }
-
-    scrollToCard(nextIndex);
-  };
+    return undefined;
+  }, []);
 
   return (
     <section id="certificates" className="border-b border-[var(--color-line)] bg-[var(--color-softest)]">
@@ -218,75 +91,42 @@ export default function Certificates() {
           </p>
         </div>
 
-        <div className="certificate-gallery-shell">
-          <button
-            type="button"
-            className="certificate-nav__button certificate-nav__button--side"
-            aria-label="Previous certificate"
-            onClick={() => scrollToAdjacentCard('prev')}
-          >
-            &lt;
-          </button>
-
-          <div
-            ref={marqueeRef}
-            className={`certificate-marquee${mobileSwipeDirection ? ` is-swipe-${mobileSwipeDirection}` : ''}`}
-            aria-label="Certificates gallery"
-          >
-            <div className="certificate-marquee__track">
-              {certificates.map((certificate, index) => (
-                <article
-                  key={certificate.title}
-                  className="panel interactive-card certificate-marquee__card text-left"
-                  aria-label={`Certificate ${index + 1} of ${certificates.length}`}
+        <div className="certificate-grid" aria-label="Certificates gallery">
+          {certificates.map((certificate, index) => (
+            <article
+              key={`${certificate.title}-${index}`}
+              className="panel interactive-card certificate-grid__card text-left"
+              aria-label={`Certificate ${index + 1} of ${certificates.length}`}
+            >
+              {certificate.image && (
+                <div className="certificate-card__image-frame mb-4">
+                  <img
+                    src={certificate.image}
+                    alt={certificate.title}
+                    className={`certificate-card__image${
+                      certificate.title === 'Hackspark-codethon' ? ' certificate-card__image--hackspark' : ''
+                    }`}
+                  />
+                </div>
+              )}
+              <p className="text-sm font-medium text-[var(--color-accent)]">{certificate.issuer}</p>
+              <h3 className="mt-3 text-xl font-semibold text-[var(--color-ink)]">{certificate.title}</h3>
+              <p className="mt-4 text-sm leading-7 text-[var(--color-body)]">{certificate.note}</p>
+              <div className="certificate-card__footer mt-5 flex items-center justify-between gap-3">
+                <button
+                  type="button"
+                  className="certificate-card__action"
+                  onClick={() => setActiveCertificate(certificate)}
                 >
-                  {certificate.image && (
-                    <div className="certificate-card__image-frame mb-4">
-                      <img
-                        src={certificate.image}
-                        alt={certificate.title}
-                        className={`certificate-card__image${
-                          certificate.title === 'Hackspark-codethon'
-                            ? ' certificate-card__image--hackspark'
-                            : ''
-                        }`}
-                      />
-                    </div>
-                  )}
-                  <p className="text-sm font-medium text-[var(--color-accent)]">{certificate.issuer}</p>
-                  <h3 className="mt-3 text-xl font-semibold text-[var(--color-ink)]">{certificate.title}</h3>
-                  <p className="mt-4 text-sm leading-7 text-[var(--color-body)]">{certificate.note}</p>
-                  <div className="mt-5 flex items-center justify-between gap-3">
-                    <button
-                      type="button"
-                      className="certificate-card__action"
-                      onClick={() => setActiveCertificate(certificate)}
-                    >
-                      View Details
-                    </button>
-                    <span className="certificate-card__arrow" aria-hidden="true">
-                      &gt;
-                    </span>
-                  </div>
-                  <div className="certificate-card__index" aria-hidden="true">
-                    {index + 1} / {certificates.length}
-                  </div>
-                </article>
-              ))}
-            </div>
-          </div>
-
-          <button
-            type="button"
-            className="certificate-nav__button certificate-nav__button--side"
-            aria-label="Next certificate"
-            onClick={() => scrollToAdjacentCard('next')}
-          >
-            &gt;
-          </button>
+                  View Details
+                </button>
+              </div>
+              <div className="certificate-card__index" aria-hidden="true">
+                {index + 1} / {certificates.length}
+              </div>
+            </article>
+          ))}
         </div>
-
-        <div className="certificate-nav" aria-label="Certificate navigation" />
       </div>
 
       {activeCertificate && (

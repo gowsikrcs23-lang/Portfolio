@@ -8,6 +8,7 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Popup from './components/Popup';
 import MouseLine from './components/MouseLine';
+import RobotNavigator from './components/RobotNavigator';
 
 function App() {
   useEffect(() => {
@@ -79,6 +80,7 @@ function App() {
         <Projects />
         <Contact />
       </main>
+      <RobotNavigator />
       <Popup />
     </div>
   );

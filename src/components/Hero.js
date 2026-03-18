@@ -8,7 +8,7 @@ export default function Hero() {
           <p className="mb-4 text-sm font-medium uppercase tracking-[0.22em] text-[var(--color-accent)]">
             Professional Portfolio
           </p>
-          <h1 className="max-w-4xl text-4xl font-semibold leading-tight text-[var(--color-ink)] sm:text-5xl lg:text-6xl">
+          <h1 className="hero-name max-w-4xl text-4xl font-semibold leading-tight text-[var(--color-ink)] sm:text-5xl lg:text-6xl">
             {profile.name}
           </h1>
           <p className="mt-4 text-xl text-[var(--color-muted)]">{profile.title}</p>

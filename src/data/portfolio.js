@@ -152,67 +152,83 @@ export const projects = [
 
 export const certificates = [
   {
-    title: 'Certificate IEEE',
+    title: 'IEEE Participation',
     issuer: 'IEEE',
     period: '2024',
-    note: 'IEEE certificate highlighting participation and learning activity related to technology and professional development.',
+    note: 'Certificate of participation in IEEE student activities focused on technology and professional development.',
     image: 'Cerificate IEEE.jpg',
-    credential: 'Professional participation certificate',
-    organization: 'IEEE student activity program',
+    credential: 'Participation certificate',
+    organization: 'IEEE Student Activities',
     description:
-      'This certificate reflects active participation in an IEEE-led learning experience focused on technology awareness, professional growth, and engagement with the technical community.',
+      'Recognizes active involvement in IEEE student-led learning and professional development activities.',
     highlights: [
-      'Participated in a technology-centered professional learning activity.',
-      'Improved awareness of engineering communities and industry practices.',
-      'Strengthened professional development through guided engagement.'
+      'Engaged in technology-focused student activities.',
+      'Strengthened awareness of professional communities.',
+      'Documented participation and learning.'
     ]
   },
   {
     title: 'Code Cubic 5.0 Hackathon',
-    issuer: 'Hackathon Participation',
+    issuer: 'Code Cubic 5.0',
     period: '2025',
-    note: 'Certificate recognizing participation in the Code Cubic 5.0 Hackathon, highlighting problem solving, teamwork, and rapid project development in a competitive event setting.',
+    note: 'Certificate of participation in the Code Cubic 5.0 Hackathon.',
     image: '241CS504-TCO-27.09.2025_page-0001.jpg',
-    credential: 'Hackathon participation certificate',
-    organization: 'Code Cubic 5.0',
+    credential: 'Participation certificate',
+    organization: 'Code Cubic 5.0 Hackathon',
     description:
-      'Awarded for active participation in a hackathon environment that required fast ideation, teamwork, and practical solution building within limited time.',
+      'Recognizes participation in a team-based hackathon environment focused on rapid ideation and solution building.',
     highlights: [
-      'Worked in a rapid development and competitive event setting.',
-      'Applied teamwork, presentation, and problem-solving skills.',
-      'Built experience delivering ideas under time constraints.'
+      'Collaborated in a time-bound event.',
+      'Applied problem-solving and teamwork.',
+      'Gained experience delivering under deadlines.'
     ]
   },
   {
-    title: 'Hackspark-codethon',
+    title: 'Hackspark Codethon',
     issuer: 'Hackspark Codethon',
     period: '2024',
-    note: 'Certificate recognizing participation in the Hackspark Codethon event and involvement in practical problem solving and collaborative development.',
+    note: 'Certificate of participation in the Hackspark Codethon event.',
     image: 'Gowsik Certificate_page-0001.jpg',
-    credential: 'Event participation certificate',
+    credential: 'Participation certificate',
     organization: 'Hackspark Codethon',
     description:
-      'This certificate highlights participation in the Hackspark Codethon program, with focus on coding, teamwork, and practical execution in an event-based environment.',
+      'Recognizes participation in a codethon focused on coding practice and collaborative execution.',
     highlights: [
-      'Participated in a coding-focused collaborative event.',
-      'Applied problem solving and development skills in practice.',
-      'Gained experience working in an event-driven technical setting.'
+      'Participated in a coding event.',
+      'Practiced collaboration and execution.',
+      'Strengthened practical development skills.'
     ]
   },
   {
     title: 'Introduction to Cybersecurity',
     issuer: 'Cisco',
     period: '2024',
-    note: 'Certificate covering cybersecurity fundamentals, security awareness, threats, and core protection concepts.',
+    note: 'Certificate covering foundational cybersecurity concepts and safe computing practices.',
     image: 'Introduction_to_Cybersecurity_certificate_gowsikr-cs23-bitsathy-ac-in_8ca6d508-42a3-4cea-90f9-4726049c45d3_page-0001.jpg',
-    credential: 'Cybersecurity fundamentals certificate',
+    credential: 'Course completion certificate',
     organization: 'Cisco Networking Academy',
     description:
-      'Focused on core cybersecurity concepts including digital safety, common security threats, and the foundational practices used to protect systems and information.',
+      'Completed the Cisco Networking Academy course on cybersecurity fundamentals and online safety.',
     highlights: [
-      'Learned key cybersecurity concepts and common threat types.',
-      'Improved awareness of safe digital practices and protection methods.',
-      'Built a stronger foundation for further security learning.'
+      'Learned core cybersecurity terminology.',
+      'Understood common threats and risks.',
+      'Built a foundation for further security study.'
+    ]
+  },
+  {
+    title: 'Tata Imagination Challenge',
+    issuer: 'Tata Imagination Challenge',
+    period: '2026',
+    note: 'Participation in the Tata Imagination Challenge.',
+    image: 'ChatGPT Image Mar 16, 2026, 09_26_53 PM.png',
+    credential: 'Participation certificate',
+    organization: 'Tata Imagination Challenge',
+    description:
+      'Recognizes participation in a national-level innovation and case competition.',
+    highlights: [
+      'Participated in a competitive innovation challenge.',
+      'Applied structured thinking and presentation skills.',
+      'Gained exposure to real-world problem statements.'
     ]
   }
 ];
