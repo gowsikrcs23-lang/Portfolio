@@ -159,12 +159,22 @@ export const certificates = [
     image: 'Cerificate IEEE.jpg',
     credential: 'Participation certificate',
     organization: 'IEEE Student Activities',
+    format: 'Student activity participation',
     description:
       'Recognizes active involvement in IEEE student-led learning and professional development activities.',
     highlights: [
       'Engaged in technology-focused student activities.',
       'Strengthened awareness of professional communities.',
       'Documented participation and learning.'
+    ],
+    focusAreas: [
+      'Professional community engagement',
+      'Peer learning and collaboration',
+      'Student chapter development'
+    ],
+    outcomes: [
+      'Expanded professional awareness and networking',
+      'Built consistency in structured learning activities'
     ]
   },
   {
@@ -175,12 +185,22 @@ export const certificates = [
     image: '241CS504-TCO-27.09.2025_page-0001.jpg',
     credential: 'Participation certificate',
     organization: 'Code Cubic 5.0 Hackathon',
+    format: 'Hackathon participation',
     description:
       'Recognizes participation in a team-based hackathon environment focused on rapid ideation and solution building.',
     highlights: [
       'Collaborated in a time-bound event.',
       'Applied problem-solving and teamwork.',
       'Gained experience delivering under deadlines.'
+    ],
+    focusAreas: [
+      'Rapid ideation and prioritization',
+      'Team collaboration and communication',
+      'Problem solving under time pressure'
+    ],
+    outcomes: [
+      'Improved teamwork in short delivery cycles',
+      'Strengthened confidence presenting solutions'
     ]
   },
   {
@@ -191,12 +211,22 @@ export const certificates = [
     image: 'Gowsik Certificate_page-0001.jpg',
     credential: 'Participation certificate',
     organization: 'Hackspark Codethon',
+    format: 'Codethon participation',
     description:
       'Recognizes participation in a codethon focused on coding practice and collaborative execution.',
     highlights: [
       'Participated in a coding event.',
       'Practiced collaboration and execution.',
       'Strengthened practical development skills.'
+    ],
+    focusAreas: [
+      'Hands-on coding practice',
+      'Team-based execution',
+      'Practical development workflows'
+    ],
+    outcomes: [
+      'Improved speed and accuracy in coding tasks',
+      'Reinforced collaborative development habits'
     ]
   },
   {
@@ -207,12 +237,22 @@ export const certificates = [
     image: 'Introduction_to_Cybersecurity_certificate_gowsikr-cs23-bitsathy-ac-in_8ca6d508-42a3-4cea-90f9-4726049c45d3_page-0001.jpg',
     credential: 'Course completion certificate',
     organization: 'Cisco Networking Academy',
+    format: 'Online course completion',
     description:
       'Completed the Cisco Networking Academy course on cybersecurity fundamentals and online safety.',
     highlights: [
       'Learned core cybersecurity terminology.',
       'Understood common threats and risks.',
       'Built a foundation for further security study.'
+    ],
+    focusAreas: [
+      'Cybersecurity fundamentals',
+      'Threats, risks, and mitigation basics',
+      'Safe computing practices'
+    ],
+    outcomes: [
+      'Built a strong entry-level security foundation',
+      'Prepared for advanced security learning paths'
     ]
   },
   {
@@ -223,12 +263,22 @@ export const certificates = [
     image: 'ChatGPT Image Mar 16, 2026, 09_26_53 PM.png',
     credential: 'Participation certificate',
     organization: 'Tata Imagination Challenge',
+    format: 'Innovation challenge participation',
     description:
       'Recognizes participation in a national-level innovation and case competition.',
     highlights: [
       'Participated in a competitive innovation challenge.',
       'Applied structured thinking and presentation skills.',
       'Gained exposure to real-world problem statements.'
+    ],
+    focusAreas: [
+      'Structured problem analysis',
+      'Innovation and idea framing',
+      'Presentation and communication'
+    ],
+    outcomes: [
+      'Improved confidence in problem framing',
+      'Strengthened storytelling for solutions'
     ]
   }
 ];

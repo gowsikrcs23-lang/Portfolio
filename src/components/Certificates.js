@@ -176,8 +176,44 @@ export default function Certificates() {
                       <p className="text-xs uppercase tracking-[0.18em] text-[var(--color-muted)]">Organization</p>
                       <p className="mt-2 font-medium text-[var(--color-ink)]">{activeCertificate.organization}</p>
                     </div>
+                    {activeCertificate.format && (
+                      <div className="rounded-lg border border-[var(--color-line)] bg-white p-4">
+                        <p className="text-xs uppercase tracking-[0.18em] text-[var(--color-muted)]">Format</p>
+                        <p className="mt-2 font-medium text-[var(--color-ink)]">{activeCertificate.format}</p>
+                      </div>
+                    )}
                   </div>
                   <p className="mt-6 text-base leading-8 text-[var(--color-body)]">{activeCertificate.description}</p>
+                  {(activeCertificate.focusAreas || activeCertificate.outcomes) && (
+                    <div className="mt-6 grid gap-4 text-sm text-[var(--color-body)] sm:grid-cols-2">
+                      {activeCertificate.focusAreas && (
+                        <div className="rounded-lg border border-[var(--color-line)] bg-white p-4">
+                          <p className="text-xs uppercase tracking-[0.18em] text-[var(--color-muted)]">Focus Areas</p>
+                          <ul className="mt-3 grid gap-2">
+                            {activeCertificate.focusAreas.map((area) => (
+                              <li key={area} className="flex items-start gap-3">
+                                <span className="mt-2 h-2 w-2 rounded-full bg-[var(--color-accent)]" />
+                                <span>{area}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                      {activeCertificate.outcomes && (
+                        <div className="rounded-lg border border-[var(--color-line)] bg-white p-4">
+                          <p className="text-xs uppercase tracking-[0.18em] text-[var(--color-muted)]">Outcomes</p>
+                          <ul className="mt-3 grid gap-2">
+                            {activeCertificate.outcomes.map((outcome) => (
+                              <li key={outcome} className="flex items-start gap-3">
+                                <span className="mt-2 h-2 w-2 rounded-full bg-[var(--color-accent)]" />
+                                <span>{outcome}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      )}
+                    </div>
+                  )}
                   <div className="mt-6 rounded-xl border border-[var(--color-line)] bg-white p-5">
                     <p className="text-xs uppercase tracking-[0.18em] text-[var(--color-muted)]">Highlights</p>
                     <ul className="mt-4 grid gap-3 text-sm leading-7 text-[var(--color-body)]">
