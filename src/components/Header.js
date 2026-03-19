@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { profile } from '../data/portfolio';
 
 const navItems = [
@@ -12,6 +12,25 @@ const navItems = [
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const updateProgress = () => {
+      const doc = document.documentElement;
+      const maxScroll = Math.max(doc.scrollHeight - window.innerHeight, 1);
+      const progress = Math.min((window.scrollY / maxScroll) * 100, 100);
+      setScrollProgress(progress);
+    };
+
+    updateProgress();
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    window.addEventListener('resize', updateProgress);
+
+    return () => {
+      window.removeEventListener('scroll', updateProgress);
+      window.removeEventListener('resize', updateProgress);
+    };
+  }, []);
 
   const handleScroll = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -31,11 +50,16 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 border-b border-[var(--color-line)] bg-white">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-5 md:px-8 md:py-3">
-        <button type="button" className="text-left" onClick={() => handleScroll('home')}>
-          <span className="block text-lg font-semibold text-[var(--color-ink)]">{profile.name}</span>
-          <span className="block text-xs text-[var(--color-muted)]">{profile.title}</span>
+    <header className="site-header fixed inset-x-0 top-0 z-50 border-b border-[var(--color-line)] bg-white relative">
+      <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-2 sm:px-5 md:px-8 md:py-2">
+        <button type="button" className="flex items-center gap-2 text-left" onClick={() => handleScroll('home')}>
+          <span className="nav-brand-letter" aria-hidden="true">
+            G
+          </span>
+          <span>
+            <span className="block text-base font-semibold text-[var(--color-ink)]">{profile.name}</span>
+          <span className="block text-[11px] text-[var(--color-muted)]">{profile.title}</span>
+          </span>
         </button>
 
         <div className="hidden items-center gap-1.5 rounded-full border border-[rgba(37,99,235,0.18)] bg-[var(--color-softest)] px-2 py-1.5 shadow-[0_8px_18px_rgba(15,23,42,0.04)] md:inline-flex">
@@ -91,6 +115,10 @@ export default function Header() {
           </div>
         </div>
       )}
+
+      <div className="nav-progress" aria-hidden="true">
+        <span className="nav-progress__bar" style={{ width: `${scrollProgress}%` }} />
+      </div>
     </header>
   );
 }

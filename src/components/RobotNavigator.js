@@ -33,7 +33,7 @@ const commandMap = {
 const initialMessages = [
   {
     role: 'bot',
-    text: `Hi, I can help with this portfolio end to end. Ask about ${profile.name}, skills, projects, certificates, internships, or contact details.`
+    text: `Hello, welcome to ${profile.name}'s portfolio. I can share a professional summary of the profile, experience, skills, projects, certificates, and contact details.`
   }
 ];
 
@@ -69,6 +69,34 @@ function getEducationSummary() {
   return `Education: ${items.join('; ')}.`;
 }
 
+function getFullPortfolioSummary() {
+  const profileSummary = `${profile.name} is a ${profile.title} based in ${profile.location}. ${profile.summary}`;
+  const skillsSummary = getSkillsSummary();
+  const projectsSummary = getProjectsSummary();
+  const certificatesSummary = getCertificatesSummary();
+  const experienceSummary = getExperienceSummary();
+  const educationSummary = getEducationSummary();
+  const contactSummary = `Contact: ${profile.email}. Resume and social links are in the contact section.`;
+
+  return [
+    profileSummary,
+    educationSummary,
+    experienceSummary,
+    skillsSummary,
+    projectsSummary,
+    certificatesSummary,
+    contactSummary
+  ].join(' ');
+}
+
+function getProfessionalGreetingReply() {
+  return `Hello! Thank you for visiting ${profile.name}'s portfolio. ${getFullPortfolioSummary()}`;
+}
+
+function getPoliteAcknowledgeReply() {
+  return `Thank you for your message. ${getFullPortfolioSummary()}`;
+}
+
 function detectSectionRequest(message) {
   const normalized = message.toLowerCase();
   const sectionId = Object.entries(commandMap).find(([key]) => normalized.includes(key))?.[1];
@@ -96,21 +124,20 @@ function getBotReply(message) {
 
   if (!normalized) {
     return {
-      text: 'Ask me anything about this portfolio, or say "open projects".'
+      text: getProfessionalGreetingReply()
     };
   }
 
   if (normalized === 'clear') {
     return {
       clear: true,
-      text: 'Chat cleared. Ask about any part of the portfolio.'
+      text: `Chat cleared. ${getFullPortfolioSummary()}`
     };
   }
 
   if (normalized === 'help') {
     return {
-      text:
-        'I can answer about profile, education, internships, skills, projects, certificates, resume, and contact. To navigate, say things like "open projects" or "go to contact".'
+      text: getFullPortfolioSummary()
     };
   }
 
@@ -123,114 +150,40 @@ function getBotReply(message) {
   const sectionToOpen = detectSectionRequest(normalized);
   if (sectionToOpen) {
     return {
-      text: `Opening ${sectionToOpen}.`,
+      text: `Opening ${sectionToOpen}. ${getFullPortfolioSummary()}`,
       navigateTo: sectionToOpen
     };
   }
 
-  if (normalized.includes('who are you') || normalized.includes('about') || normalized.includes('profile')) {
+  if (
+    normalized === 'hi' ||
+    normalized === 'hello' ||
+    normalized === 'hey' ||
+    normalized === 'good morning' ||
+    normalized === 'good afternoon' ||
+    normalized === 'good evening'
+  ) {
     return {
-      text: `${profile.name} is a ${profile.title} based in ${profile.location}. ${profile.summary}`
+      text: getProfessionalGreetingReply()
     };
   }
 
   if (
-    normalized.includes('skill') ||
-    normalized.includes('tech stack') ||
-    normalized.includes('technology') ||
-    normalized.includes('tools')
+    normalized === 'no' ||
+    normalized === 'nope' ||
+    normalized === 'nah' ||
+    normalized === 'okay' ||
+    normalized === 'ok' ||
+    normalized === 'thanks' ||
+    normalized === 'thank you'
   ) {
     return {
-      text: getSkillsSummary()
-    };
-  }
-
-  if (
-    normalized.includes('project') ||
-    normalized.includes('work') ||
-    normalized.includes('portfolio project')
-  ) {
-    return {
-      text: getProjectsSummary()
-    };
-  }
-
-  if (
-    normalized.includes('certificate') ||
-    normalized.includes('certification') ||
-    normalized.includes('achievement')
-  ) {
-    return {
-      text: getCertificatesSummary()
-    };
-  }
-
-  if (
-    normalized.includes('intern') ||
-    normalized.includes('experience') ||
-    normalized.includes('worked') ||
-    normalized.includes('job')
-  ) {
-    return {
-      text: getExperienceSummary()
-    };
-  }
-
-  if (
-    normalized.includes('education') ||
-    normalized.includes('study') ||
-    normalized.includes('college') ||
-    normalized.includes('degree')
-  ) {
-    return {
-      text: getEducationSummary()
-    };
-  }
-
-  if (
-    normalized.includes('contact') ||
-    normalized.includes('email') ||
-    normalized.includes('resume') ||
-    normalized.includes('reach')
-  ) {
-    return {
-      text: `You can contact ${profile.name} at ${profile.email}. The resume is available in the contact section, along with GitHub, LinkedIn, and LeetCode links.`
-    };
-  }
-
-  if (normalized.includes('recipe radar')) {
-    return {
-      text: 'Recipe Radar Generator is a React and Firebase web app for multi-language recipe recommendations with ingredient-aware suggestions.'
-    };
-  }
-
-  if (normalized.includes('expense tracker')) {
-    return {
-      text: 'Expense Tracker is a full-stack MERN-style project focused on budget tracking, expense monitoring, and spending insights.'
-    };
-  }
-
-  if (normalized.includes('lab login') || normalized.includes('computer lab')) {
-    return {
-      text: 'Computer Lab Login Register is a system utility built with HTML, CSS, JavaScript, and PHP for secure registration, login, and session-aware records.'
-    };
-  }
-
-  if (normalized.includes('food delivery')) {
-    return {
-      text: 'Food Delivery App UI/UX is a Figma-based product design project focused on intuitive ordering and clean screen flow.'
-    };
-  }
-
-  if (normalized.includes('grocery')) {
-    return {
-      text: 'Online Grocery Shop is a commerce-oriented full-stack project built with MongoDB, Express, React, and Node.js.'
+      text: getPoliteAcknowledgeReply()
     };
   }
 
   return {
-    text:
-      'I can help with profile, education, internships, skills, projects, certificates, and contact details. You can also say "open projects" or "go to contact".'
+    text: getFullPortfolioSummary()
   };
 }
 

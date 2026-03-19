@@ -74,7 +74,7 @@ export default function Contact() {
                 rel="noopener noreferrer"
                 className="rounded-md border border-[var(--color-line-strong)] px-5 py-3 text-sm font-semibold text-[var(--color-ink)] transition hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]"
               >
-                Send Email
+                Send Mail
               </a>
             </div>
           </div>

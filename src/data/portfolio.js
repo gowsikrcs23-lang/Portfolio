@@ -18,7 +18,7 @@ export const profile = {
 
 export const stats = [
   {
-    value: '05',
+    value: '06',
     label: 'Projects Delivered',
     note: 'Built projects across web development, UI/UX, and full-stack implementation.'
   },
@@ -108,6 +108,14 @@ export const highlights = [
 ];
 
 export const projects = [
+  {
+    title: 'College ERP System',
+    type: 'Full stack',
+    description:
+      'A role-based college ERP system that manages admissions, attendance, internal marks, fee tracking, timetable publishing, and staff-student communication in one dashboard.',
+    stack: ['Vite', 'React', 'Node.js', 'Express', 'MongoDB'],
+    accent: 'from-[#0f172a] via-[#1e3a8a] to-[#38bdf8]'
+  },
   {
     title: 'Recipe Radar Generator',
     type: 'Web app',

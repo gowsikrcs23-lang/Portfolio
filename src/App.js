@@ -7,7 +7,6 @@ import Certificates from './components/Certificates';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Popup from './components/Popup';
-import MouseLine from './components/MouseLine';
 import RobotNavigator from './components/RobotNavigator';
 
 function App() {
@@ -70,7 +69,6 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white text-[var(--color-ink)]">
-      <MouseLine />
       <Header />
       <main className="pt-[76px]">
         <Hero />
